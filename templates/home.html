@@ -170,6 +170,36 @@
       height: auto;
       border-radius: 10px;
     }
+    /* Smooth fade transition */
+    #carousel-image {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+    }
+    .fade-out {
+    opacity: 0;
+    }
+
+    /* Carousel Dots */
+    .carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    }
+    .carousel-dot {
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+    .carousel-dot.active {
+    background-color: #007bff;
+    }
+
 
     .carousel-btn {
       position: absolute;
@@ -293,18 +323,26 @@
    <!-- ==== HERO SECTION ==== -->
   <section class="hero-section">
     <!-- Image Carousel -->
-    <div class="carousel-container">
-      <img id="carousel-image" src="{% static 'images/image1.png' %}" alt="Freelancing" alt="Freelancing">
-      <button class="carousel-btn prev" onclick="changeImage(-1)">&#8249;</button>
-      <button class="carousel-btn next" onclick="changeImage(1)">&#8250;</button>
-    </div>
+        <div class="carousel-container">
+        <img id="carousel-image" src="{% static 'images/image1.png' %}" alt="Freelancing">
+
+        <button class="carousel-btn prev" onclick="changeImage(-1)">&#8249;</button>
+        <button class="carousel-btn next" onclick="changeImage(1)">&#8250;</button>
+
+        <div class="carousel-dots">
+            <span class="carousel-dot" onclick="goToSlide(0)"></span>
+            <span class="carousel-dot" onclick="goToSlide(1)"></span>
+            <span class="carousel-dot" onclick="goToSlide(2)"></span>
+        </div>
+        </div>
+
 
     <!-- Text Content -->
     <div class="hero-text">
       <h1>Work Smarter. Hire Faster.</h1>
       <p>
         Whether you're a freelancer looking for remote gigs, or a business in need of top talent, FreelanceConnect makes it seamless. 
-        Discover jobs, post projects, and collaborate securely — all in one place.
+        Discover jobs, post projects, and collaborate securely all in one place.
       </p>
       <div class="hero-buttons">
         <a href="">Get Started</a>
@@ -315,28 +353,54 @@
 
   <!-- ========== end of the home page ========-->
 
-  <!-- ======= JavaScript for Menu Toggle ======= -->
-  <script>
-    function toggleMenu() {
-      document.getElementById('mobileMenu').classList.toggle('open');
-    }
+ <script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
 
-    // carousel for images 
+  document.addEventListener("DOMContentLoaded", function () {
     const images = [
-    "{% static 'images/image1.png' %}",
-    "{% static 'images/image2.png' %}",
-    "{% static 'images/image3.png' %}"
+      "{% static 'images/image1.png' %}",
+      "{% static 'images/image2.png' %}",
+      "{% static 'images/image3.png' %}"
     ];
 
     let index = 0;
     const imageElement = document.getElementById('carousel-image');
+    const dots = document.querySelectorAll('.carousel-dot');
 
-    function changeImage(direction) {
-      index = (index + direction + images.length) % images.length;
-      imageElement.src = images[index];
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
     }
-    
-  </script>
+
+    function showImage(i) {
+      imageElement.classList.add('fade-out');
+      setTimeout(() => {
+        index = i;
+        imageElement.src = images[index];
+        updateDots();
+        imageElement.classList.remove('fade-out');
+      }, 300); // matches CSS transition
+    }
+
+    window.changeImage = function (direction) {
+      let nextIndex = (index + direction + images.length) % images.length;
+      showImage(nextIndex);
+    };
+
+    window.goToSlide = function (i) {
+      if (i === index) return;
+      showImage(i);
+    };
+
+    // Set initial dot state
+    updateDots();
+  });
+
+</script>
+
 
 </body>
 </html>

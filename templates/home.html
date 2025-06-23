@@ -285,6 +285,120 @@
         display: inline-block;
       }
     }
+
+    /* the rest of the page */
+
+    body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  section {
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .about-section {
+    background: linear-gradient(to bottom, #f0f4f8, #ffffff);
+    color: #0b1d3a;
+  }
+
+  .about-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .about-section p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    color: #444;
+  }
+
+  .features-section {
+    background-color: #eef2f5;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .feature {
+    width: 300px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .feature:hover {
+    transform: translateY(-10px);
+  }
+
+  .feature img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+
+  .feature h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    color: #0b1d3a;
+  }
+
+  .scroll-image-section {
+    background: #1c3557;
+    color: white;
+    padding: 100px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scroll-image-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .scroll-image-container {
+    width: 250px;
+    height: 250px;
+    margin: 40px auto 0;
+  }
+
+  .scroll-image-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transition: transform 0.3s ease-out;
+  }
+
+  footer {
+    background-color: #0b1d3a;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  footer a {
+    color: #ffcc00;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+
+  @media (max-width: 768px) {
+    .feature {
+      width: 90%;
+    }
+
+    .scroll-image-container {
+      width: 180px;
+      height: 180px;
+    }
+  }
   </style>
 </head>
 <body>
@@ -359,6 +473,58 @@
     </div>
   </section>
 
+
+  <!-- the rest -->
+   <!-- ABOUT SECTION -->
+<section class="about-section">
+  <h2>Why FreelanceConnect?</h2>
+  <p>
+    FreelanceConnect is your bridge to the future of work. Whether you're a designer, developer,
+    writer or marketer, our platform connects top freelancers with clients who value skill,
+    quality, and reliability. We're not just a marketplace — we're a movement to empower
+    freelancers and help businesses scale with flexible talent.
+  </p>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="features-section">
+  <div class="feature">
+    <img src = "{% static 'images/remotework.png' %}" alt="Remote Work">
+    <h3>Work from Anywhere</h3>
+    <p>Choose your projects, set your hours, and work wherever you feel most productive.</p>
+  </div>
+
+  <div class="feature">
+    <img src ="{% static 'images/clients.png' %}" alt="Clients">
+    <h3>Connect with Top Clients</h3>
+    <p>Get discovered by startups, agencies, and enterprises from around the globe.</p>
+  </div>
+
+  <div class="feature">
+    <img src = "{% static 'images/payment.png' %}" alt="Payments">
+    <h3>Secure Payments</h3>
+    <p>Enjoy fast, transparent, and secure payment systems built for freelancers.</p>
+  </div>
+</section>
+
+<!-- SCROLL IMAGE SECTION -->
+<section class="scroll-image-section">
+  <h2>Visualizing Success</h2>
+  <p>As you explore more, let your journey rotate your vision.</p>
+  <div class="scroll-image-container">
+    <img src="{% static 'images/vision.png' %}"id="scrollImage" alt="Rotating">
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 FreelanceConnect. All rights reserved.</p>
+  <p>
+    <a href="#">Privacy Policy</a> |
+    <a href="#">Terms of Service</a> |
+    <a href="#">Contact Us</a>
+  </p>
+</footer>
   <!-- ========== end of the home page ========-->
 
  <script>
@@ -405,6 +571,15 @@
 
     // Set initial dot state
     updateDots();
+  });
+ let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const img = document.getElementById('scrollImage');
+    let scrollY = window.scrollY;
+    let direction = scrollY > lastScroll ? 'down' : 'up';
+    let angle = scrollY % 360;
+    img.style.transform = `rotate(${direction === 'down' ? angle : -angle}deg)`;
+    lastScroll = scrollY;
   });
 
 </script>

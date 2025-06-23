@@ -444,6 +444,54 @@
     }
     }
 
+    /* various jobs styling */ 
+    .job-info-section {
+    text-align: center;
+    padding: 60px 20px 20px;
+    background-color: #f8f9fa;
+    animation: fadeSlideUp 1.5s ease-out forwards;
+    opacity: 0;
+    }
+
+    .job-title {
+    font-size: 2.2rem;
+    color: #0b1d3a;
+    margin-bottom: 10px;
+    }
+
+    .job-description {
+    font-size: 1.1rem;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    }
+
+    /* Entry animation */
+    @keyframes fadeSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    }
+
+    /* Responsive styling */
+    @media (max-width: 768px) {
+    .job-title {
+        font-size: 1.6rem;
+    }
+
+    .job-description {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+    }
+
+
   </style>
 </head>
 <body>
@@ -550,6 +598,13 @@
     <h3>Secure Payments</h3>
     <p>Enjoy fast, transparent, and secure payment systems built for freelancers.</p>
   </div>
+</section>
+
+<section class="job-info-section">
+  <h2 class="job-title">Opportunities Available on FreelanceConnect</h2>
+  <p class="job-description">
+    Discover a wide variety of freelance jobs available on our platform. Whether you're a developer, designer, marketer, or writer, there's something for everyone. Keep an eye on the scrolling list of trending freelance roles below.
+  </p>
 </section>
 
         <!--various jobs-->

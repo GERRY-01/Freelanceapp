@@ -1,3 +1,4 @@
+{% load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -130,6 +131,122 @@
     .content {
       padding-top: 80px;
     }
+
+    /* ==== Hero section === */
+     body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 100px 40px 40px;
+      background-color: #f8f9fa;
+      min-height: 100vh;
+      gap: 40px;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 1s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .carousel-container {
+      position: relative;
+      max-width: 450px;
+    }
+
+    .carousel-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: white;
+      font-size: 24px;
+      padding: 8px 14px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
+    .carousel-btn:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .carousel-btn.prev {
+      left: 10px;
+    }
+
+    .carousel-btn.next {
+      right: 10px;
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-text h1 {
+      font-size: 2.5rem;
+      color: #0b1d3a;
+    }
+
+    .hero-text p {
+      margin: 20px 0;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .hero-buttons a {
+      text-decoration: none;
+      background-color: #007bff;
+      color: white;
+      padding: 12px 24px;
+      margin-right: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .hero-buttons a:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        flex-direction: column;
+        padding: 120px 20px 40px;
+        text-align: center;
+      }
+
+      .carousel-container {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+
+      .hero-buttons a {
+        display: block;
+        margin: 10px auto;
+      }
+    }
   </style>
 </head>
 <body>
@@ -171,20 +288,54 @@
     <a href="" class="signup">Sign Up</a>
   </div>
 
-  <!-- ======= Sample Page Content ======= -->
-  <div class="content">
-    <section style="padding: 30px;">
-      <h1>Welcome to FreelanceConnect</h1>
-      <p>This is your homepage content below the fixed navbar.</p>
-      <p style="margin-top: 1000px;">Scroll down to test fixed navbar.</p>
-    </section>
-  </div>
+  <!-- ======= the home page =========-->
+
+   <!-- ==== HERO SECTION ==== -->
+  <section class="hero-section">
+    <!-- Image Carousel -->
+    <div class="carousel-container">
+      <img id="carousel-image" src="{% static 'images/image1.png' %}" alt="Freelancing" alt="Freelancing">
+      <button class="carousel-btn prev" onclick="changeImage(-1)">&#8249;</button>
+      <button class="carousel-btn next" onclick="changeImage(1)">&#8250;</button>
+    </div>
+
+    <!-- Text Content -->
+    <div class="hero-text">
+      <h1>Work Smarter. Hire Faster.</h1>
+      <p>
+        Whether you're a freelancer looking for remote gigs, or a business in need of top talent, FreelanceConnect makes it seamless. 
+        Discover jobs, post projects, and collaborate securely — all in one place.
+      </p>
+      <div class="hero-buttons">
+        <a href="">Get Started</a>
+        <a href="#hire-freelancers">Post a Job</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== end of the home page ========-->
 
   <!-- ======= JavaScript for Menu Toggle ======= -->
   <script>
     function toggleMenu() {
       document.getElementById('mobileMenu').classList.toggle('open');
     }
+
+    // carousel for images 
+    const images = [
+    "{% static 'images/image1.png' %}",
+    "{% static 'images/image2.png' %}",
+    "{% static 'images/image3.png' %}"
+    ];
+
+    let index = 0;
+    const imageElement = document.getElementById('carousel-image');
+
+    function changeImage(direction) {
+      index = (index + direction + images.length) % images.length;
+      imageElement.src = images[index];
+    }
+    
   </script>
 
 </body>

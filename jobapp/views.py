@@ -10,6 +10,7 @@ def home(request):
     return render(request, 'home.html')
 
 def signup(request):
+    customuser = None
     if request.method == 'POST':
         fullname = request.POST.get('fullname')
         email = request.POST.get('email')
@@ -71,8 +72,21 @@ def signup(request):
         messages.success(request, 'Account created successfully')
         return redirect('jobs')
 
-    return render(request, 'signup.html',{'customuser':customuser})
+    return render(request, 'signup.html',{'customuser': customuser})
 def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            auth_login(request, user)
+            messages.success(request, 'Login successful')
+            return redirect('jobs')
+        else:
+            messages.error(request, 'Invalid email or password')
+            return render(request, 'login.html')
     return render(request, 'login.html')
 
 def jobs(request):

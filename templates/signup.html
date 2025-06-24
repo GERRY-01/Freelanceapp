@@ -112,15 +112,16 @@
 <body>
   <div class="signup-container">
     <h2>Create Your Account</h2>
-    <form id="signupForm">
+    <form id="signupForm" method="post">
+        {% csrf_token %}
       <div class="form-row">
         <div class="form-group">
           <label for="fullName">Full Name</label>
-          <input type="text" id="fullName" required />
+          <input type="text" id="fullName" name="fullname" required />
         </div>
         <div class="form-group">
           <label for="email">Email Address</label>
-          <input type="email" id="email" required />
+          <input type="email" id="email" name="email" required />
         </div>
       </div>
 
@@ -128,25 +129,25 @@
         <div class="form-row">
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" id="username" required />
+            <input type="text" id="username" name="username" required />
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" required />
+            <input type="password" id="password" name="password" required />
         </div>
         </div>
 
         <div class="form-row">
         <div class="form-group">
             <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" required />
+            <input type="password" id="confirmPassword" name="confirmpassword" required />
         </div>
         </div>
 
       <div class="form-row">
         <div class="form-group">
           <label for="role">Account Type</label>
-          <select id="role" onchange="toggleRoleFields()">
+          <select id="role" name="account_type" onchange="toggleRoleFields()" required>
             <option value="">Select Role</option>
             <option value="freelancer">Freelancer</option>
             <option value="client">Client</option>
@@ -154,7 +155,7 @@
         </div>
         <div class="form-group">
           <label for="profilePicture">Profile Picture</label>
-          <input type="file" id="profilePicture" accept="image/*" />
+          <input type="file" id="profilePicture" name="profilepicture" accept="image/*" required />
         </div>
       </div>
 
@@ -162,18 +163,18 @@
       <div class="form-row freelancer-only" style="display:none;">
         <div class="form-group">
           <label for="skills">Skills</label>
-          <input type="text" id="skills" placeholder="e.g. Web Design, Writing" />
+          <input type="text" name="skills" id="skills" placeholder="e.g. Web Design, Writing" />
         </div>
         <div class="form-group">
           <label for="experience">Experience (in years)</label>
-          <input type="number" id="experience" min="0" />
+          <input type="number" id="experience" name="experience" min="0" />
         </div>
       </div>
 
       <div class="form-row freelancer-only" style="display:none;">
         <div class="form-group" style="flex: 1;">
           <label for="bio">Short Bio</label>
-          <textarea id="bio" rows="4" placeholder="Tell us about yourself..."></textarea>
+          <textarea id="bio" rows="4" name="bio" placeholder="Tell us about yourself..."></textarea>
         </div>
       </div>
 
@@ -181,11 +182,11 @@
       <div class="form-row client-only" style="display:none;">
         <div class="form-group">
           <label for="companyName">Company Name</label>
-          <input type="text" id="companyName" />
+          <input type="text" name="companyname" id="companyName" />
         </div>
         <div class="form-group">
           <label for="companySize">Company Size</label>
-          <select id="companySize">
+          <select id="companySize" name="companysize">
             <option value="">Select</option>
             <option value="1-10">1-10 employees</option>
             <option value="11-50">11-50 employees</option>
@@ -198,7 +199,7 @@
       <div class="form-row client-only" style="display:none;">
         <div class="form-group" style="flex: 1;">
           <label for="website">Company Website (optional)</label>
-          <input type="url" id="website" placeholder="https://example.com" />
+          <input type="url" name="companywebsite" id="website" placeholder="https://example.com" />
         </div>
       </div>
 
@@ -209,7 +210,12 @@
         <p>Already have an account?</p>
         <a href="{% url 'login' %}">Login</a>
         </div>
-
+        
+        {% if messages%}
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
     </form>
   </div>
 

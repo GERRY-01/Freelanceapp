@@ -89,5 +89,7 @@ def login(request):
             return render(request, 'login.html')
     return render(request, 'login.html')
 
-def jobs(request):
-    return render(request, 'jobs.html')
+def freelancer(request):
+    return render(request, 'freelancer.html')
+def client(request):
+    return render(request, 'client.html')

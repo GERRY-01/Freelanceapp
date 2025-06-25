@@ -351,8 +351,14 @@
       <a href="#" class="logout-link">Logout</a>
     </div>
     <div class="user-info">
-      <img src="https://i.pravatar.cc/150?img=5" alt="User" />
-      <span>gerry_bosco</span>
+      {% if user.is_authenticated %}
+        {% if user.customuser.profile_pic %}
+      <img src="{{ user.customuser.profile_pic.url }}" alt="User" />
+        {% endif %}
+      <span>{{ user.username }}</span>
+      {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      {% endif %}
     </div>
   </div>
 

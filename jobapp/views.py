@@ -68,8 +68,6 @@ def signup(request):
         )
         
         auth_login(request, user)
-
-        messages.success(request, 'Account created successfully')
         return redirect('jobs')
 
     return render(request, 'signup.html',{'customuser': customuser})
@@ -82,8 +80,7 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
-            messages.success(request, 'Login successful')
-            return redirect('jobs')
+            return redirect('jobs')            
         else:
             messages.error(request, 'Invalid email or password')
             return render(request, 'login.html')
@@ -93,3 +90,9 @@ def freelancer(request):
     return render(request, 'freelancer.html')
 def client(request):
     return render(request, 'client.html')
+def jobs(request):
+    return render(request, 'jobs.html')
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')

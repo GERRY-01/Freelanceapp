@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Marketplace</title>
+  <style>
+    :root {
+      --primary: #1abc9c;
+      --dark: #2c3e50;
+      --light-bg: #f4f6f9;
+      --white: #fff;
+      --text-dark: #333;
+      --text-light: #777;
+      --blue: #007bff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+    }
+
+    .navbar {
+      background-color: var(--dark);
+      color: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .navbar-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .navbar-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .logout-link {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: var(--blue);
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .logout-link:hover {
+      background-color: #0056b3;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .user-info img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    .main h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: var(--dark);
+    }
+
+    .dashboard-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1.5rem;
+    }
+
+    .dashboard-link {
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 0.7rem 1.5rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .dashboard-link:hover {
+      background-color: var(--primary);
+    }
+
+   .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      align-items: center;
+    }
+
+
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .search-wrapper input {
+      flex: 1;
+      padding: 0.8rem 2.5rem 0.8rem 1rem; /* right padding for space */
+      font-size: 1rem;
+      border-radius: 5px 0 0 5px;
+      border: 1px solid #ccc;
+      border-right: none;
+    }
+
+    .search-wrapper button[type="submit"] {
+      padding: 0.8rem 1.2rem;
+      background-color: var(--primary);
+      border: none;
+      color: white;
+      border-radius: 0 5px 5px 0;
+      font-weight: bold;
+      cursor: pointer;
+      height: auto;
+    }
+
+    .search-wrapper button[type="submit"]:hover {
+      background-color: #16a085;
+    }
+
+    .clear-btn {
+      position: absolute;
+      right: 90px; /* adjust this based on submit button width */
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #777;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+      z-index: 2;
+    }
+
+    .clear-btn:hover {
+      color: #333;
+    }
+
+
+
+
+
+      .filters select {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      height: 40px;
+    }
+
+
+    .job-card {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .job-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .job-header img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .poster-name {
+      font-weight: bold;
+      color: var(--text-dark);
+    }
+
+    .job-card h3 {
+      font-size: 1.2rem;
+      color: var(--dark);
+    }
+
+    .job-card p {
+      color: var(--text-light);
+    }
+
+    .bottom-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .budget {
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .apply-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .apply-btn {
+      background-color: var(--primary);
+      color: white;
+      padding: 0.5rem 1.1rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .apply-btn:hover {
+      background-color: #16a085;
+    }
+
+    .no-results {
+      text-align: center;
+      font-style: italic;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .navbar-left {
+        width: 100%;
+        align-items: flex-start;
+      }
+
+      .user-info {
+        align-self: flex-end;
+      }
+
+      .filters {
+        flex-direction: column;
+      }
+
+      .search-wrapper,
+      .filters select {
+        width: 100%;
+      }
+
+      .bottom-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .apply-group {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-title">Job Marketplace</div>
+      <a href="#" class="logout-link">Logout</a>
+    </div>
+    <div class="user-info">
+      <img src="https://i.pravatar.cc/150?img=5" alt="User" />
+      <span>gerry_bosco</span>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <h1>Available Jobs</h1>
+
+    <!-- Dashboard Link -->
+    <div class="dashboard-container">
+      <a href="#" class="dashboard-link">Go to My Dashboard</a>
+    </div>
+
+    <!-- Filters -->
+    <form class="filters" id="searchForm">
+     <div class="search-wrapper">
+      <input type="text" placeholder="Search job titles..." name="search" id="searchInput" />
+      <button type="button" class="clear-btn" id="clearBtn" title="Clear">&times;</button>
+      <button type="submit">Search</button>
+    </div>
+
+
+      <select>
+        <option value="">Filter by price</option>
+        <option value="0-100">$0 - $100</option>
+        <option value="101-300">$101 - $300</option>
+        <option value="301-500">$301 - $500</option>
+        <option value="500+">$500+</option>
+      </select>
+    </form>
+
+    <!-- Job Listings -->
+    <div id="job-list">
+      <div class="job-card" data-title="design a logo for new startup">
+        <div class="job-header">
+          <img src="https://i.pravatar.cc/150?img=8" alt="Client">
+          <div class="poster-name">john_doe</div>
+        </div>
+        <h3>Design a Logo for New Startup</h3>
+        <p>We need a creative logo for our SaaS product. It should be minimal, modern, and scalable.</p>
+        <div class="bottom-row">
+          <div class="budget">Budget: $150</div>
+          <div class="apply-group">
+            <button class="apply-btn">Apply Now</button>
+            <span>5 applications</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="job-card" data-title="build a personal portfolio website">
+        <div class="job-header">
+          <img src="https://i.pravatar.cc/150?img=10" alt="Client">
+          <div class="poster-name">susan_tech</div>
+        </div>
+        <h3>Build a Personal Portfolio Website</h3>
+        <p>Looking for a front-end dev to build a responsive portfolio site in React with clean animations.</p>
+        <div class="bottom-row">
+          <div class="budget">Budget: $400</div>
+          <div class="apply-group">
+            <button class="apply-btn">Apply Now</button>
+            <span>12 applications</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="job-card" data-title="fix bugs in laravel app">
+        <div class="job-header">
+          <img src="https://i.pravatar.cc/150?img=15" alt="Client">
+          <div class="poster-name">chris_dev</div>
+        </div>
+        <h3>Fix Bugs in Laravel App</h3>
+        <p>Need help with fixing login issues, form validation, and error handling in our Laravel project.</p>
+        <div class="bottom-row">
+          <div class="budget">Budget: $120</div>
+          <div class="apply-group">
+            <button class="apply-btn">Apply Now</button>
+            <span>3 applications</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message for no results -->
+    <p class="no-results" id="noResults" style="display:none;">No matching results found.</p>
+  </div>
+
+  <!-- JavaScript for Search -->
+ <script>
+  const searchForm = document.getElementById('searchForm');
+  const searchInput = document.getElementById('searchInput');
+  const jobCards = document.querySelectorAll('.job-card');
+  const noResults = document.getElementById('noResults');
+  const clearBtn = document.getElementById('clearBtn');
+
+  function filterJobs(query) {
+    let matchFound = false;
+    jobCards.forEach(card => {
+      const title = card.dataset.title.toLowerCase();
+      if (title.includes(query)) {
+        card.style.display = 'block';
+        matchFound = true;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    noResults.style.display = matchFound ? 'none' : 'block';
+  }
+
+  searchForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const query = searchInput.value.toLowerCase().trim();
+    if (query) {
+      filterJobs(query);
+      clearBtn.style.display = 'block';
+    }
+  });
+
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    jobCards.forEach(card => card.style.display = 'block');
+    noResults.style.display = 'none';
+    clearBtn.style.display = 'none';
+  });
+
+  // Show/hide clear button based on input
+  searchInput.addEventListener('input', () => {
+    clearBtn.style.display = searchInput.value ? 'block' : 'none';
+  });
+</script>
+
+</body>
+</html>
+
+
+
+

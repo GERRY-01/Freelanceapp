@@ -269,6 +269,17 @@
       font-size: 0.85rem;
       margin-top: 5px;
     }
+    .job-deadline {
+    font-size: 0.9rem;
+    color: #e63946; /* soft red for urgency */
+    font-weight: 500;
+    padding: 6px 12px;
+    border-left: 4px solid #e63946;
+    border-radius: 4px;
+    margin-top: 10px;
+    display: inline-block;
+  }
+
 
 
     @media (max-width: 768px) {
@@ -423,6 +434,10 @@
           <small class="posted-time">Posted {{ job.posted_at }}</small>
         </div>
         <h3>{{job.title}}</h3>
+
+         <p class="job-deadline">
+          <strong>Deadline:</strong> {{ job.deadline|date:"F j, Y" }}
+        </p>
 
         <div class="job-description">
           {% with job.description|wordcount as word_count %}

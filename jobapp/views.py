@@ -131,5 +131,14 @@ def apply(request, job_id):
     return render(request, 'apply.html',{'job':job})
 
 def client_proposals(request):
-    proposals = Proposals.objects.filter(job__client=request.user.customuser)
-    return render(request, 'client_proposals.html', {'proposals': proposals})
+    if  not request.user.is_authenticated:
+        messages.warning(request,'Login required')
+        return redirect('login')
+    customuser = request.user.customuser
+    
+    if customuser.account_type != 'client':
+        return redirect('home') 
+    
+    client_jobs = Jobs.objects.filter(client=customuser)
+    proposals = Proposals.objects.filter(job__in=client_jobs)
+    return render(request, 'client_proposals.html',{'proposals':proposals})

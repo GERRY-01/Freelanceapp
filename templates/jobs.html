@@ -235,6 +235,7 @@
     }
 
     .apply-btn {
+      text-decoration: none;
       background-color: var(--primary);
       color: white;
       padding: 0.5rem 1.1rem;
@@ -461,7 +462,14 @@
         <div class="bottom-row">
           <div class="budget">Budget: KSH {{job.budget}}</div>
           <div class="apply-group">
-            <button class="apply-btn">Apply Now</button>
+            {% if user.is_authenticated and user.customuser.account_type == "freelancer" %}
+              <a href="{% url 'apply' job.id %}" class="apply-btn">Apply Now</a>
+            {% elif user.is_authenticated and user.customuser.account_type == "client" %}
+              <p style="color: red; font-weight: bold;">Only freelancers can apply to jobs.</p>
+            {% else %}
+              <a href="{% url 'login' %}" class="apply-btn">Login to Apply</a>
+            {% endif %}
+
             <span>5 applications</span>
           </div>
         </div>

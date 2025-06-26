@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+from datetime import timedelta
 # Create your models here.
 
 class CustomUser(models.Model):
@@ -40,3 +42,20 @@ class Jobs(models.Model):
     status = models.CharField(max_length=200, default='Open')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    def posted_at(self):
+        now = timezone.now()
+        diff = now - self.created_at
+        if diff < timedelta(minutes=1):
+            return 'just now'
+        elif diff < timedelta(hours=1):
+            minutes = diff.seconds // 60
+            return f"{minutes} minute{'s' if minutes != 1 else ''} ago"
+        elif diff < timedelta(days=1):
+            hours = diff.seconds // 3600
+            return f"{hours} hour{'s' if hours != 1 else ''} ago"
+        elif now.date() - self.created_at.date() == 1:
+            return "yesterday"
+        else:
+            return self.created_at.strftime("%b %d, %Y")
+            

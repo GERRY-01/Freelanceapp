@@ -264,6 +264,12 @@
     .job-description a:hover {
       text-decoration: underline;
     }
+    .posted-time {
+      color: #888;
+      font-size: 0.85rem;
+      margin-top: 5px;
+    }
+
 
     @media (max-width: 768px) {
       .navbar {
@@ -414,6 +420,7 @@
         <div class="job-header">
           <img src="{{job.client.profile_pic.url}}" alt="Client">
           <div class="poster-name">{{job.client.user.username}}</div>
+          <small class="posted-time">Posted {{ job.posted_at }}</small>
         </div>
         <h3>{{job.title}}</h3>
 

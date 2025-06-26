@@ -58,4 +58,15 @@ class Jobs(models.Model):
             return "yesterday"
         else:
             return self.created_at.strftime("%b %d, %Y")
+        
+class Proposals(models.Model):
+    freelancer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    job = models.ForeignKey(Jobs, on_delete=models.CASCADE)
+    proposal = models.TextField()
+    budget = models.PositiveIntegerField()
+    duration = models.PositiveIntegerField()
+    portfolio_url = models.URLField(blank=True, null=True)
+    attachment = models.FileField(upload_to='proposals/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
             

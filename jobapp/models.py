@@ -30,3 +30,13 @@ class CustomUser(models.Model):
     skills = models.CharField(max_length=200, blank=True, null=True)
     experience = models.PositiveIntegerField(blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
+    
+class Jobs(models.Model):
+    client = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    budget = models.PositiveIntegerField()
+    deadline = models.DateField()
+    status = models.CharField(max_length=200, default='Open')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

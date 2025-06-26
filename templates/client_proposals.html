@@ -94,52 +94,44 @@
 <body>
 
   <h1>Proposals for Your Jobs</h1>
+  <a href="javascript:history.back()" style="text-decoration: none; background-color: #1e90ff; color: white; padding: 6px 10px; border-radius: 6px; font-weight: bold;">
+  ⬅ Go Back
+</a>
+
+{% if messages %}
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+{% endif %}
+
 
   <!-- Proposal Card Template -->
+   {% for proposal in proposals %}
   <div class="proposal-card">
-    <h2>Design a Logo for Startup</h2>
+    <h2>{{proposal.job.title}}</h2>
     <div class="meta">
-      From: <strong>freelancer_john</strong><br>
-      Budget: KSH 8,000<br>
-      Duration: 5 days<br>
-      Submitted: June 25, 2025
+      From: <strong>{{proposal.freelancer.fullname}}</strong><br>
+      Budget: KSH {{proposal.budget}}<br>
+      Duration: {{proposal.duration}} days<br>
+      Submitted: {{proposal.created_at}}
     </div>
 
-    <div class="proposal-description">
-      I can create a minimalist, modern logo for your startup. I have 4 years of experience in branding and graphic design. Let’s discuss the concept.
-    </div>
+    <div class="proposal-description">{{proposal.proposal}}</div>
 
-    <a href="#" class="portfolio-link" target="_blank">View Portfolio</a><br>
-    <a href="#" class="download-link" download>Download Attachment</a>
+    <a href="{{proposal.portfolio_url}}" class="portfolio-link" target="_blank">View Portfolio</a><br>
+    {% if proposal.attachment %}
+    <a href="{{ proposal.attachment.url }}" class="download-link" download>Download Attachment</a>
+    {% endif %}
+
 
     <div class="proposal-actions">
       <button>Message Freelancer</button>
       <button>Hire</button>
     </div>
   </div>
-
-  <!-- Repeat more proposal cards as needed -->
-  <div class="proposal-card">
-    <h2>Build a Landing Page</h2>
-    <div class="meta">
-      From: <strong>designer_amy</strong><br>
-      Budget: KSH 5,000<br>
-      Duration: 3 days<br>
-      Submitted: June 24, 2025
-    </div>
-
-    <div class="proposal-description">
-      I specialize in responsive landing pages using HTML, CSS, and JS. I’ll deliver clean code and beautiful UI within 3 days.
-    </div>
-
-    <a href="#" class="portfolio-link" target="_blank">View Portfolio</a>
-
-    <div class="proposal-actions">
-      <button>Message Freelancer</button>
-      <button>Hire</button>
-    </div>
-  </div>
-
+  {% empty %}
+  <p>No proposals received yet.</p>
+  {% endfor %}
 </body>
 </html>
 

@@ -254,6 +254,16 @@
       font-style: italic;
       color: var(--text-light);
     }
+    .job-description a {
+      color: #1e90ff;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .job-description a:hover {
+      text-decoration: underline;
+    }
 
     @media (max-width: 768px) {
       .navbar {
@@ -399,53 +409,42 @@
 
     <!-- Job Listings -->
     <div id="job-list">
-      <div class="job-card" data-title="design a logo for new startup">
+      {% for job in jobs %}
+      <div class="job-card" data-title="{{job.title|lower}}">
         <div class="job-header">
-          <img src="https://i.pravatar.cc/150?img=8" alt="Client">
-          <div class="poster-name">john_doe</div>
+          <img src="{{job.client.profile_pic.url}}" alt="Client">
+          <div class="poster-name">{{job.client.user.username}}</div>
         </div>
-        <h3>Design a Logo for New Startup</h3>
-        <p>We need a creative logo for our SaaS product. It should be minimal, modern, and scalable.</p>
+        <h3>{{job.title}}</h3>
+
+        <div class="job-description">
+          {% with job.description|wordcount as word_count %}
+          {% if word_count > 45%}
+          <p class="short-desc" id="short-{{ job.id }}">
+            {{ job.description|truncatewords:45 }}...
+            <a href="javascript:void(0);" onclick="showFull('{{ job.id }}')">Read More</a>
+          </p>
+
+          <p class="full-desc" id="full-{{ job.id }}" style="display: none;">
+            {{ job.description }}
+            <a href="javascript:void(0);" onclick="showLess('{{ job.id }}')">Show Less</a>
+          </p>
+          {% else %}
+          <p>{{job.description}}</p>
+          {% endif %}
+          {% endwith %}
+        </div>
+
+
         <div class="bottom-row">
-          <div class="budget">Budget: $150</div>
+          <div class="budget">Budget: KSH {{job.budget}}</div>
           <div class="apply-group">
             <button class="apply-btn">Apply Now</button>
             <span>5 applications</span>
           </div>
         </div>
       </div>
-
-      <div class="job-card" data-title="build a personal portfolio website">
-        <div class="job-header">
-          <img src="https://i.pravatar.cc/150?img=10" alt="Client">
-          <div class="poster-name">susan_tech</div>
-        </div>
-        <h3>Build a Personal Portfolio Website</h3>
-        <p>Looking for a front-end dev to build a responsive portfolio site in React with clean animations.</p>
-        <div class="bottom-row">
-          <div class="budget">Budget: $400</div>
-          <div class="apply-group">
-            <button class="apply-btn">Apply Now</button>
-            <span>12 applications</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="job-card" data-title="fix bugs in laravel app">
-        <div class="job-header">
-          <img src="https://i.pravatar.cc/150?img=15" alt="Client">
-          <div class="poster-name">chris_dev</div>
-        </div>
-        <h3>Fix Bugs in Laravel App</h3>
-        <p>Need help with fixing login issues, form validation, and error handling in our Laravel project.</p>
-        <div class="bottom-row">
-          <div class="budget">Budget: $120</div>
-          <div class="apply-group">
-            <button class="apply-btn">Apply Now</button>
-            <span>3 applications</span>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
 
     <!-- Message for no results -->
@@ -494,6 +493,16 @@
   searchInput.addEventListener('input', () => {
     clearBtn.style.display = searchInput.value ? 'block' : 'none';
   });
+
+    function showFull(id) {
+    document.getElementById('short-' + id).style.display = 'none';
+    document.getElementById('full-' + id).style.display = 'block';
+  }
+
+  function showLess(id) {
+    document.getElementById('full-' + id).style.display = 'none';
+    document.getElementById('short-' + id).style.display = 'block';
+  }
 </script>
 
 </body>

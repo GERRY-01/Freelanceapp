@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import CustomUser
+from .models import CustomUser, Jobs
 from django.contrib.auth import login as auth_login, authenticate,logout
 
 # Create your views here.
@@ -91,8 +91,24 @@ def freelancer(request):
 def client(request):
     return render(request, 'client.html')
 def jobs(request):
-    return render(request, 'jobs.html')
+    jobs = Jobs.objects.all()
+    return render(request, 'jobs.html',{'jobs': jobs})
 
 def logout_user(request):
     logout(request)
     return redirect('home')
+
+def postjob(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        budget = request.POST.get('budget')
+        deadline = request.POST.get('deadline')
+        status = request.POST.get('status')
+
+        # Save the job to the database
+        job = Jobs(client=request.user.customuser, title=title, description=description, budget=budget, deadline=deadline, status=status)
+        job.save()
+
+        return redirect('jobs')
+    return render(request, 'postjob.html')

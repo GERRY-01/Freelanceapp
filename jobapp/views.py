@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import CustomUser, Jobs
+from .models import CustomUser, Jobs, Proposals
 from django.contrib.auth import login as auth_login, authenticate,logout
 
 # Create your views here.
@@ -112,3 +112,24 @@ def postjob(request):
 
         return redirect('jobs')
     return render(request, 'postjob.html')
+
+def apply(request, job_id):
+    freelancer = request.user.customuser
+    job = Jobs.objects.get(id=job_id)
+    if request.method == 'POST':
+       message = request.POST.get('proposal')
+       budget = request.POST.get('budget')
+       duration = request.POST.get('duration')
+       portfolio_url = request.POST.get('portfolio_url')
+       attachment = request.FILES.get('attachment')
+
+       # Save the proposal to the database  
+       proposal = Proposals(freelancer=freelancer, job=job, proposal=message, budget=budget, duration=duration, portfolio_url=portfolio_url, attachment=attachment)
+       proposal.save()
+       messages.success(request, 'Proposal submitted successfully!')
+       return redirect('jobs')
+    return render(request, 'apply.html',{'job':job})
+
+def client_proposals(request):
+    proposals = Proposals.objects.filter(job__client=request.user.customuser)
+    return render(request, 'client_proposals.html', {'proposals': proposals})

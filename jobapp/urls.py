@@ -9,4 +9,5 @@ urlpatterns = [
     path('client', views.client, name='client'),
     path('jobs', views.jobs, name='jobs'),
     path('logout', views.logout_user, name='logout'),
+    path('postjob', views.postjob, name='postjob'),
 ]

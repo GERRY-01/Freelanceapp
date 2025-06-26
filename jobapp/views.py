@@ -87,7 +87,8 @@ def login(request):
     return render(request, 'login.html')
 
 def freelancer(request):
-    return render(request, 'freelancer.html')
+    proposal_count = Proposals.objects.filter(freelancer=request.user.customuser).count()
+    return render(request, 'freelancer.html',{'proposal_count':proposal_count})
 def client(request):
     return render(request, 'client.html')
 def jobs(request):

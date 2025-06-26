@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Client Proposals</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .proposal-card {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .proposal-card h2 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .meta {
+      font-size: 14px;
+      color: #666;
+      margin: 10px 0;
+    }
+
+    .proposal-description {
+      margin: 10px 0;
+      font-size: 15px;
+      color: #444;
+    }
+
+    .portfolio-link, .download-link {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 14px;
+      color: #1e90ff;
+      text-decoration: none;
+    }
+
+    .proposal-actions {
+      margin-top: 15px;
+    }
+
+    .proposal-actions button {
+      background: #1e90ff;
+      color: white;
+      padding: 8px 14px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s ease;
+    }
+
+    .proposal-actions button:hover {
+      background: #0077cc;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      .proposal-card {
+        padding: 15px;
+      }
+
+      .proposal-actions button {
+        width: 100%;
+        margin: 5px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Proposals for Your Jobs</h1>
+
+  <!-- Proposal Card Template -->
+  <div class="proposal-card">
+    <h2>Design a Logo for Startup</h2>
+    <div class="meta">
+      From: <strong>freelancer_john</strong><br>
+      Budget: KSH 8,000<br>
+      Duration: 5 days<br>
+      Submitted: June 25, 2025
+    </div>
+
+    <div class="proposal-description">
+      I can create a minimalist, modern logo for your startup. I have 4 years of experience in branding and graphic design. Let’s discuss the concept.
+    </div>
+
+    <a href="#" class="portfolio-link" target="_blank">View Portfolio</a><br>
+    <a href="#" class="download-link" download>Download Attachment</a>
+
+    <div class="proposal-actions">
+      <button>Message Freelancer</button>
+      <button>Hire</button>
+    </div>
+  </div>
+
+  <!-- Repeat more proposal cards as needed -->
+  <div class="proposal-card">
+    <h2>Build a Landing Page</h2>
+    <div class="meta">
+      From: <strong>designer_amy</strong><br>
+      Budget: KSH 5,000<br>
+      Duration: 3 days<br>
+      Submitted: June 24, 2025
+    </div>
+
+    <div class="proposal-description">
+      I specialize in responsive landing pages using HTML, CSS, and JS. I’ll deliver clean code and beautiful UI within 3 days.
+    </div>
+
+    <a href="#" class="portfolio-link" target="_blank">View Portfolio</a>
+
+    <div class="proposal-actions">
+      <button>Message Freelancer</button>
+      <button>Hire</button>
+    </div>
+  </div>
+
+</body>
+</html>
+

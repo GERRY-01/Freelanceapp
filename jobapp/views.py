@@ -93,7 +93,12 @@ def client(request):
     return render(request, 'client.html')
 def jobs(request):
     jobs = Jobs.objects.all()
-    return render(request, 'jobs.html',{'jobs': jobs})
+    applied_job_ids = []
+    if request.user.is_authenticated and request.user.customuser.account_type == 'freelancer':
+        freelancer = request.user.customuser
+        applied_job_ids = Proposals.objects.filter(freelancer=freelancer).values_list('job_id', flat=True)
+
+    return render(request, 'jobs.html',{'jobs': jobs,'applied_job_ids': applied_job_ids})
 
 def logout_user(request):
     logout(request)

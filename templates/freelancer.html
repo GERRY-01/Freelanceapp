@@ -1,295 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Freelancer Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    body {
+      background-color: #f8f9fa;
       font-family: 'Segoe UI', sans-serif;
     }
 
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      background-color: #f4f6f9;
-    }
-
-  header {
-  padding: 16px;
-  background-color: #f5f5f5;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-    header h1 {
-      font-size: 1.2rem;
-    }
-
-   #menu-btn {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-.user-profile {
-  display: flex;
-  align-items: center;
-  margin-top: 12px;
-}
-
-.profile-pic {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
-  border: 2px solid #1e90ff;
-}
-
-.username {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-    .container {
-      display: flex;
-      flex: 1;
+    .navbar-brand {
+      color: #1e88e5 !important;
+      font-weight: 600;
     }
 
     .sidebar {
-      width: 220px;
-      background-color: #34495e;
-      color: white;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      transition: transform 0.3s ease-in-out;
+      min-height: 100vh;
+      background-color: #1e88e5;
     }
 
-   .sidebar a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.5rem;
-    border-radius: 5px;
-    transition: background 0.3s ease;
+    .sidebar a {
+      color: #fff;
+      display: block;
+      padding: 12px 16px;
+      text-decoration: none;
     }
 
     .sidebar a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
-    .main-content {
-      flex: 1;
-      padding: 2rem;
+    .stat-card {
+      transition: transform 0.3s ease;
     }
 
-    .card {
-      margin-top: 0;
-      background-color: white;
-      border-radius: 10px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    .stat-card:hover {
+      transform: translateY(-4px);
     }
 
-    .card h2 {
-      margin-bottom: 1rem;
-      color: #2c3e50;
-    }
-
-    .job {
-      padding: 1rem 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .job:last-child {
-      border-bottom: none;
-    }
-
-    .job h3 {
-      font-size: 1.1rem;
-      color: #333;
-    }
-
-    .job p {
-      font-size: 0.9rem;
-      color: #666;
-    }
-    .close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    color: white;
-    font-size: 1.5rem;
-    border: none;
-    cursor: pointer;
-    display: none; /* default: hidden */
-    }
-    #menu-btn {
-        display: none;
-      }
-   .back-home-link {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  text-decoration: none;
-  color: white;
-  background-color: #1e90ff;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: background 0.3s ease;
-  z-index: 2;
-}
-
-    /* Mobile Styles */
     @media (max-width: 768px) {
-      #menu-btn {
-        display: block;
-      }
-       .close-btn {
-        display: block; /* show on mobile only */
-     }
-
-      .container {
-        flex-direction: column;
-      }
-
       .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 70%;
-        max-width: 250px;
-        transform: translateX(-100%);
-        z-index: 999;
-        padding-top: 4rem;
+        min-height: auto;
       }
-
-      .sidebar.active {
-        transform: translateX(0);
-      }
-
-      .sidebar a {
-        padding: 1rem;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-      }
-
-      .close-btn {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: none;
-        color: white;
-        font-size: 1.5rem;
-        border: none;
-        cursor: pointer;
-      }
-
-      .main-content {
-        padding: 1rem;
-      }
-       header {
-    padding: 12px;
-  }
-
-  .user-profile {
-    margin-top: 10px;
-  }
-
-  .profile-pic {
-    width: 32px;
-    height: 32px;
-  }
-
-  .username {
-    font-size: 14px;
-  }
-   .back-home-link {
-    right: 60px; /* push to the left side of the menu button */
-    top: 16px;
-  }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Freelancer Dashboard</h1>
-   <a href="{% url 'home' %}" class="back-home-link">Back to Home</a>
-  <button id="menu-btn">&#9776;</button>
-   {% if user.is_authenticated %}
-    <div class="user-profile">
-      {% if user.customuser.profile_pic %}
-        <img src="{{ user.customuser.profile_pic.url }}" alt="Profile Picture" class="profile-pic">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Job Marketplace</a>
+    <div class="d-flex align-items-center">
+      <a href="{% url 'home' %}" class="btn btn-outline-primary me-3">Back to Home</a>
+      {% if user.is_authenticated %}
+        {% if user.customuser.profile_pic %}
+          <img src="{{ user.customuser.profile_pic.url }}" class="rounded-circle me-2" width="40" height="40" alt="Profile">
+        {% endif %}
+        <span class="fw-semibold text-dark">{{ user.username }}</span>
       {% endif %}
-      <span class="username">{{ user.username }}</span>
     </div>
-  {% endif %}
-</header>
+  </div>
+</nav>
 
-<div class="container">
-  <nav class="sidebar" id="sidebar">
-    <button class="close-btn" id="close-btn">&times;</button>
-    <a href="#">Dashboard</a>
-    <a href="#">Find Jobs</a>
-    <a href="#">Proposals</a>
-    <a href="#">Earnings</a>
-    <a href="#">Profile</a>
-    <a href="#">Logout</a>
-  </nav>
-
-  <main class="main-content">
-    <div class="card">
-      <h2>Suggested Jobs</h2>
-      <div class="job">
-        <h3>Build a React Landing Page</h3>
-        <p>Budget: $300 - Duration: 1 week</p>
-      </div>
-      <div class="job">
-        <h3>Fix bugs in Django project</h3>
-        <p>Budget: $150 - Duration: 3 days</p>
-      </div>
-      <div class="job">
-        <h3>Mobile App UI design</h3>
-        <p>Budget: $500 - Duration: 2 weeks</p>
-      </div>
+<div class="container-fluid">
+  <div class="row">
+    
+    <!-- Sidebar -->
+    <div class="col-md-3 col-lg-2 sidebar py-4">
+      <a href="#">Dashboard</a>
+      <a href="#">Find Jobs</a>
+      <a href="#">Proposals</a>
+      <a href="#">Earnings</a>
+      <a href="#">Messages</a>
+      <a href="#">Profile</a>
+      <a href="#">Logout</a>
     </div>
 
-    <div class="card">
-      <h2>Your Stats</h2>
-      <p>Proposals sent: <strong>{{proposal_count}}</strong></p>
-      <p>Jobs won: <strong>2</strong></p>
-      <p>Total earnings: <strong>$850</strong></p>
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10 p-4">
+      
+      <!-- Job Suggestions -->
+      <div class="card mb-4 p-4" data-aos="fade-up">
+        <h4 class="mb-3">Suggested Jobs</h4>
+        <div class="mb-3">
+          <h5>Design a Landing Page</h5>
+          <p class="text-muted">Budget: $300 | Duration: 1 week</p>
+          <p>Client is looking for a creative designer to build a modern, responsive website homepage.</p>
+        </div>
+        <div>
+          <h5>Fix Bugs in Django App</h5>
+          <p class="text-muted">Budget: $150 | Duration: 3 days</p>
+          <p>Resolve API issues and UI problems in a Django-based freelance platform.</p>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="row g-3">
+        <div class="col-md-4" data-aos="fade-right">
+          <div class="card stat-card p-4 text-center shadow-sm">
+            <h6 class="text-muted">Proposals Sent</h6>
+            <h4 class="fw-bold">{{ proposal_count }}</h4>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="card stat-card p-4 text-center shadow-sm">
+            <h6 class="text-muted">Jobs Won</h6>
+            <h4 class="fw-bold">2</h4>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-left">
+          <div class="card stat-card p-4 text-center shadow-sm">
+            <h6 class="text-muted">Total Earnings</h6>
+            <h4 class="fw-bold">$850</h4>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </main>
+  </div>
 </div>
 
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-  const menuBtn = document.getElementById('menu-btn');
-  const sidebar = document.getElementById('sidebar');
-  const closeBtn = document.getElementById('close-btn');
-
-  menuBtn.addEventListener('click', () => {
-    sidebar.classList.add('active');
-  });
-
-  closeBtn.addEventListener('click', () => {
-    sidebar.classList.remove('active');
+  AOS.init({
+    duration: 800,
+    once: true
   });
 </script>
 

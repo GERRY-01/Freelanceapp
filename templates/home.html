@@ -5,700 +5,371 @@
   <meta charset="UTF-8">
   <title>FreelanceConnect</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* ======= Global Reset & Fonts ======= */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+ 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<!-- AOS Animate on Scroll CDN -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+ <style>
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(100%);
     }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    100% {
+      transform: translateX(-100%);
     }
-
-    /* ======= Navbar Styles ======= */
-    nav {
-      background-color: #0b1d3a;
-      color: white;
-      padding: 15px 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #00b4d8;
-    }
-
-    .nav-links,
-    .auth-links {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .nav-links a,
-    .auth-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover,
-    .auth-links a:hover {
-      color: #00b4d8;
-    }
-
-    .auth-links .signup {
-      background-color: #00b4d8;
-      padding: 8px 16px;
-      border-radius: 5px;
-      color: white;
-    }
-
-    .auth-links .signup:hover {
-      background-color: #0094b8;
-    }
-
-    .menu-toggle {
-      display: none;
-      font-size: 28px;
-      cursor: pointer;
-      color: white;
-    }
-
-    /* ======= Slide-In Mobile Menu ======= */
-    .mobile-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      height: 100%;
-      width: 260px;
-      background-color: #0b1d3a;
-      padding: 25px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      transition: right 0.3s ease-in-out;
-      z-index: 9999;
-    }
-
-    .mobile-menu.open {
-      right: 0;
-    }
-
-    .mobile-menu a {
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    .mobile-menu a:hover {
-      color: #00b4d8;
-    }
-
-    .close-btn {
-      align-self: flex-end;
-      font-size: 24px;
-      cursor: pointer;
-      color: white;
-    }
-
-    /* ======= Responsive ======= */
-    @media (max-width: 768px) {
-      .nav-links,
-      .auth-links {
-        display: none;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-    }
-
-    /* Add space for fixed navbar */
-    .content {
-      padding-top: 80px;
-    }
-
-    /* ==== Hero section === */
-     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    .hero-section {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      padding: 100px 40px 40px;
-      background-color: #f8f9fa;
-      min-height: 100vh;
-      gap: 40px;
-      opacity: 0;
-      transform: translateY(50px);
-      animation: fadeInUp 1s ease-out forwards;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .carousel-container {
-      position: relative;
-      max-width: 450px;
-    }
-
-    .carousel-container img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-    }
-    /* Smooth fade transition */
-    #carousel-image {
-    transition: opacity 0.5s ease-in-out;
-    opacity: 1;
-    }
-    .fade-out {
-    opacity: 0;
-    }
-
-    /* Carousel Dots */
-    .carousel-dots {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    text-align: center;
-    }
-    .carousel-dot {
-    display: inline-block;
-    height: 12px;
-    width: 12px;
-    margin: 0 5px;
-    background-color: #bbb;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    }
-    .carousel-dot.active {
-    background-color: #007bff;
-    }
-
-
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(0, 0, 0, 0.5);
-      border: none;
-      color: white;
-      font-size: 24px;
-      padding: 8px 14px;
-      cursor: pointer;
-      border-radius: 50%;
-    }
-
-    .carousel-btn:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-
-    .carousel-btn.prev {
-      left: 10px;
-    }
-
-    .carousel-btn.next {
-      right: 10px;
-    }
-
-    .hero-text {
-      flex: 1;
-    }
-
-    .hero-text h1 {
-      font-size: 2.5rem;
-      color: #0b1d3a;
-    }
-
-    .hero-text p {
-      margin: 20px 0;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #333;
-    }
-
-    .hero-buttons a {
-      text-decoration: none;
-      background-color: #007bff;
-      color: white;
-      padding: 12px 24px;
-      margin-right: 10px;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-
-    .hero-buttons a:hover {
-      background-color: #0056b3;
-    }
-
-    @media (max-width: 768px) {
-      .hero-section {
-        flex-direction: column;
-        padding: 120px 20px 40px;
-        text-align: center;
-      }
-
-      .carousel-container {
-        width: 100%;
-        max-width: 100%;
-      }
-
-      .hero-text h1 {
-        font-size: 2rem;
-      }
-
-      .hero-buttons {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-        .hero-buttons a {
-        padding: 10px 18px;
-        font-size: 0.9rem;
-        display: inline-block;
-      }
-    }
-
-    /* the rest of the page */
-
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        scroll-behavior: smooth;
-    }
-
-    section {
-        padding: 80px 20px;
-        text-align: center;
-    }
-
-    .about-section {
-        background: linear-gradient(to bottom, #f0f4f8, #ffffff);
-        color: #0b1d3a;
-    }
-
-    .about-section h2 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-    }
-
-    .about-section p {
-        font-size: 1.2rem;
-        max-width: 800px;
-        margin: 0 auto;
-        line-height: 1.6;
-        color: #444;
-    }
-
-    .features-section {
-        background-color: #eef2f5;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 40px;
-    }
-
-    .feature {
-        width: 300px;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        padding: 20px;
-        transition: transform 0.3s ease;
-    }
-
-    .feature:hover {
-        transform: translateY(-10px);
-    }
-
-    .feature img {
-        width: 100%;
-        border-radius: 8px;
-        margin-bottom: 15px;
-    }
-
-    .feature h3 {
-        margin-bottom: 10px;
-        font-size: 1.3rem;
-        color: #0b1d3a;
-    }
-
-    .scroll-image-section {
-        background: #1c3557;
-        color: white;
-        padding: 100px 20px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .scroll-image-section h2 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-    }
-
-    .scroll-image-container {
-        width: 250px;
-        height: 250px;
-        margin: 40px auto 0;
-    }
-
-    .scroll-image-container img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        transition: transform 0.3s ease-out;
-    }
-
-    footer {
-        background-color: #0b1d3a;
-        color: white;
-        padding: 40px 20px;
-        text-align: center;
-    }
-
-    footer a {
-        color: #ffcc00;
-        text-decoration: none;
-        margin: 0 10px;
-    }
-
-    @media (max-width: 768px) {
-        .feature {
-        width: 90%;
-        }
-
-        .scroll-image-container {
-        width: 180px;
-        height: 180px;
-        }
-    }
-    /* job marquee */
-   .job-marquee-container {
-    width: 100%;
-    overflow: hidden;
-    background-color: #0b1d3a;
-    padding: 20px 0;
-    position: relative;
-    }
-
-    .job-marquee {
-    display: inline-block;
-    white-space: nowrap;
-    animation: scrollJobs 20s linear infinite;
-    }
-    .job-marquee-container:hover .job-marquee {
+  }
+   .job-marquee:hover {
     animation-play-state: paused;
-    }
+  }
+   .navbar-nav .nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+  }
 
-    .job-marquee span {
-    display: inline-block;
-    color: white;
-    font-size: 1.2rem;
-    margin: 0 40px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    }
+  .navbar-nav .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0%;
+    background-color: #0d6efd; /* Bootstrap Primary */
+    transition: width 0.3s ease;
+  }
 
-    @keyframes scrollJobs {
-    0% {
-        transform: translateX(100%);
-    }
+  .navbar-nav .nav-link:hover::after {
+    width: 100%;
+  }
+</style>
 
-    100% {
-        transform: translateX(-100%);
-    }
-    }
-
-    /* Mobile styles */
-    @media (max-width: 768px) {
-    .job-marquee span {
-        font-size: 1rem;
-        margin: 0 20px;
-    }
-    }
-
-    /* various jobs styling */ 
-    .job-info-section {
-    text-align: center;
-    padding: 60px 20px 20px;
-    background-color: #f8f9fa;
-    animation: fadeSlideUp 1.5s ease-out forwards;
-    opacity: 0;
-    }
-
-    .job-title {
-    font-size: 2.2rem;
-    color: #0b1d3a;
-    margin-bottom: 10px;
-    }
-
-    .job-description {
-    font-size: 1.1rem;
-    color: #333;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.6;
-    }
-
-    /* Entry animation */
-    @keyframes fadeSlideUp {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    }
-
-    /* Responsive styling */
-    @media (max-width: 768px) {
-    .job-title {
-        font-size: 1.6rem;
-    }
-
-    .job-description {
-        font-size: 1rem;
-        padding: 0 10px;
-    }
-    }
-
-
-  </style>
 </head>
 <body>
 
   <!-- ======= Navbar ======= -->
-  <nav>
-    <div class="logo">FreelanceConnect</div>
+  <!-- ======= Bootstrap Navbar ======= -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-primary" href="#">FreelanceConnect</a>
 
-    <div class="nav-links">
-      <a href="{% url 'jobs' %}">Find Work</a>
-      <a href="#hire-freelancers">Hire Freelancers</a>
-      <a href="#how-it-works">How It Works</a>
-      <a href="#browse-categories">Browse Categories</a>
-      <a href="#top-freelancers">Top Freelancers</a>
-      <a href="#faq">FAQs</a>
-      <a href="#support">Support</a>
+    <!-- Toggler button for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="{% url 'jobs' %}">Find Work</a></li>
+        <li class="nav-item"><a class="nav-link" href="#hire-freelancers">Hire Freelancers</a></li>
+        <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
+        <li class="nav-item"><a class="nav-link" href="#browse-categories">Browse Categories</a></li>
+        <li class="nav-item"><a class="nav-link" href="#top-freelancers">Top Freelancers</a></li>
+        <li class="nav-item"><a class="nav-link" href="#faq">FAQs</a></li>
+        <li class="nav-item"><a class="nav-link" href="#support">Support</a></li>
+      </ul>
+
+      <div class="d-flex gap-2">
+        <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+        <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+      </div>
     </div>
-
-    <div class="auth-links">
-      <a href="{% url 'login' %}">Login</a>
-      <a href="{% url 'signup' %}" class="signup">Sign Up</a>
-    </div>
-
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-  </nav>
-
-  <!-- ======= Mobile Slide-In Menu ======= -->
-  <div class="mobile-menu" id="mobileMenu">
-    <div class="close-btn" onclick="toggleMenu()">✖</div>
-    <a href="#find-work">Find Work</a>
-    <a href="#hire-freelancers">Hire Freelancers</a>
-    <a href="#how-it-works">How It Works</a>
-    <a href="#browse-categories">Browse Categories</a>
-    <a href="#top-freelancers">Top Freelancers</a>
-    <a href="#faq">FAQs</a>
-    <a href="#support">Support</a>
-    <hr style="border-color: #1c3557;">
-    <a href="">Login</a>
-    <a href="" class="signup">Sign Up</a>
   </div>
+</nav>
+
 
   <!-- ======= the home page =========-->
 
-   <!-- ==== HERO SECTION ==== -->
-  <section class="hero-section">
-    <!-- Image Carousel -->
-        <div class="carousel-container">
-        <img id="carousel-image" src="{% static 'images/image1.png' %}" alt="Freelancing">
+  <!-- ===== HERO SECTION ===== -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row align-items-center g-5">
 
-        <button class="carousel-btn prev" onclick="changeImage(-1)">&#8249;</button>
-        <button class="carousel-btn next" onclick="changeImage(1)">&#8250;</button>
+      <!-- Carousel -->
+      <div class="col-lg-6" data-aos="fade-right">
+        <div id="heroCarousel" class="carousel slide shadow rounded" data-bs-ride="carousel">
+          <div class="carousel-inner rounded">
+            <div class="carousel-item active">
+              <img src="{% static 'images/image1.png' %}" class="d-block w-100" alt="Freelancing">
+            </div>
+            <div class="carousel-item">
+              <img src="{% static 'images/image2.png' %}" class="d-block w-100" alt="Collaboration">
+            </div>
+            <div class="carousel-item">
+              <img src="{% static 'images/image3.png' %}" class="d-block w-100" alt="Remote Work">
+            </div>
+          </div>
 
-        <div class="carousel-dots">
-            <span class="carousel-dot" onclick="goToSlide(0)"></span>
-            <span class="carousel-dot" onclick="goToSlide(1)"></span>
-            <span class="carousel-dot" onclick="goToSlide(2)"></span>
+          <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          </button>
+
+          <div class="carousel-indicators mt-3">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
         </div>
+      </div>
+
+      <!-- Hero Text -->
+      <div class="col-lg-6 text-center text-lg-start" data-aos="fade-left">
+        <h1 class="display-5 fw-bold text-primary">Work Smarter. Hire Faster.</h1>
+        <p class="lead text-muted mt-3">
+          Whether you're a freelancer looking for remote gigs or a business needing top talent, FreelanceConnect makes it seamless.
+        </p>
+        <div class="mt-4 d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
+          <a href="#" class="btn btn-primary btn-lg">Get Started</a>
+          <a href="#hire-freelancers" class="btn btn-outline-secondary btn-lg">Post a Job</a>
         </div>
-
-
-    <!-- Text Content -->
-    <div class="hero-text">
-      <h1>Work Smarter. Hire Faster.</h1>
-      <p>
-        Whether you're a freelancer looking for remote gigs, or a business in need of top talent, FreelanceConnect makes it seamless. 
-        Discover jobs, post projects, and collaborate securely all in one place.
-      </p>
-      <div class="hero-buttons">
-        <a href="">Get Started</a>
-        <a href="#hire-freelancers">Post a Job</a>
       </div>
     </div>
-  </section>
-
-
-  <!-- the rest -->
-   <!-- ABOUT SECTION -->
-<section class="about-section">
-  <h2>Why FreelanceConnect?</h2>
-  <p>
-    FreelanceConnect is your bridge to the future of work. Whether you're a designer, developer,
-    writer or marketer, our platform connects top freelancers with clients who value skill,
-    quality, and reliability. We're not just a marketplace — we're a movement to empower
-    freelancers and help businesses scale with flexible talent.
-  </p>
-</section>
-
-<!-- FEATURES SECTION -->
-<section class="features-section">
-  <div class="feature">
-    <img src = "{% static 'images/remotework.png' %}" alt="Remote Work">
-    <h3>Work from Anywhere</h3>
-    <p>Choose your projects, set your hours, and work wherever you feel most productive.</p>
-  </div>
-
-  <div class="feature">
-    <img src ="{% static 'images/clients.png' %}" alt="Clients">
-    <h3>Connect with Top Clients</h3>
-    <p>Get discovered by startups, agencies, and enterprises from around the globe.</p>
-  </div>
-
-  <div class="feature">
-    <img src = "{% static 'images/payment.png' %}" alt="Payments">
-    <h3>Secure Payments</h3>
-    <p>Enjoy fast, transparent, and secure payment systems built for freelancers.</p>
   </div>
 </section>
 
-<section class="job-info-section">
-  <h2 class="job-title">Opportunities Available on FreelanceConnect</h2>
-  <p class="job-description">
-    Discover a wide variety of freelance jobs available on our platform. Whether you're a developer, designer, marketer, or writer, there's something for everyone. Keep an eye on the scrolling list of trending freelance roles below.
-  </p>
+<!-- ===== ABOUT SECTION ===== -->
+<section class="py-5 text-center" style="background-color: #f8f9fd; font-family: 'Poppins', sans-serif;">
+  <div class="container" data-aos="fade-up">
+    <h2 class="fw-bold text-primary mb-4">Why FreelanceConnect?</h2>
+    <p class="lead text-secondary mx-auto" style="max-width: 800px;">
+      FreelanceConnect is your bridge to the future of work. Whether you're a designer, developer, writer, or marketer,
+      our platform connects top freelancers with clients who value skill, quality, and reliability.
+      We're not just a marketplace — we're a movement empowering freelancers and helping businesses scale with flexible talent.
+    </p>
+  </div>
 </section>
+<!-- ===== HOW IT WORKS SECTION ===== -->
+<section id="how-it-works" class="py-5 position-relative text-dark" style="background: linear-gradient(to right, #fdfbfb, #ebedee);">
+  <div class="container position-relative" data-aos="fade-up">
+    <h2 class="text-center fw-bold mb-5">How FreelanceConnect Works</h2>
 
-        <!--various jobs-->
-        <div class="job-marquee-container">
-        <div class="job-marquee">
-            <span>Web Development</span>
-            <span>Graphic Design</span>
-            <span>Content Writing</span>
-            <span>Digital Marketing</span>
-            <span>UI/UX Design</span>
-            <span>SEO Services</span>
-            <span>App Development</span>
-            <span>Video Editing</span>
-            <span>Virtual Assistance</span>
-            <span>Customer Support</span>
+    <div class="row g-5">
+      <!-- Step 1 -->
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="card h-100 bg-white border-0 shadow-sm text-center p-4">
+          <i class="bi bi-person-plus-fill fs-1 text-primary mb-3"></i>
+          <h4 class="fw-bold">1. Sign Up & Create a Profile</h4>
+          <p>
+            Whether you're a freelancer or a client, begin by signing up. Craft a strong profile to highlight your skills or hiring goals.
+          </p>
         </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="card h-100 bg-white border-0 shadow-sm text-center p-4">
+          <i class="bi bi-search fs-1 text-success mb-3"></i>
+          <h4 class="fw-bold">2. Browse or Post Jobs</h4>
+          <p>
+            Freelancers browse projects. Clients post detailed jobs. Our matching system helps both sides find the perfect fit.
+          </p>
         </div>
+      </div>
 
+      <!-- Step 3 -->
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="card h-100 bg-white border-0 shadow-sm text-center p-4">
+          <i class="bi bi-people-fill fs-1 text-warning mb-3"></i>
+          <h4 class="fw-bold">3. Connect & Collaborate</h4>
+          <p>
+            Message securely, manage milestones, share files, and track progress — all within FreelanceConnect.
+          </p>
+        </div>
+      </div>
 
-
-<!-- SCROLL IMAGE SECTION -->
-<section class="scroll-image-section">
-  <h2>Visualizing Success</h2>
-  <p>As you explore more, let your journey rotate your vision.</p>
-  <div class="scroll-image-container">
-    <img src="{% static 'images/vision.png' %}"id="scrollImage" alt="Rotating">
+      <!-- Step 4 -->
+      <div class="col-md-6 mx-auto mt-4" data-aos="fade-up" data-aos-delay="400">
+        <div class="card h-100 bg-white border-0 shadow-sm text-center p-4">
+          <i class="bi bi-cash-stack fs-1 text-info mb-3"></i>
+          <h4 class="fw-bold">4. Get Paid Securely</h4>
+          <p>
+            When the job is done, freelancers receive payments fast and securely. No delays, no hassles.
+          </p>
+          <a href="{% url 'signup' %}" class="btn btn-primary mt-3">Get Started Now</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <p>&copy; 2025 FreelanceConnect. All rights reserved.</p>
+
+<!-- ====== FEATURES SECTION ====== -->
+<section class="py-5" style="background-color: #e6f1ff;">
+  <div class="container text-center">
+    <h2 class="mb-4 fw-bold">Why FreelanceConnect?</h2>
+    <div class="row g-5">
+      <div class="col-md-4" data-aos="fade-up">
+        <img src="{% static 'images/remotework.png' %}" alt="Remote Work" style="width: 160px; height: auto;" class="mb-4">
+        <h4 class="fw-semibold">Work from Anywhere</h4>
+        <p class="text-muted">Choose your projects, set your hours, and work wherever you feel most productive.</p>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <img src="{% static 'images/clients.png' %}" alt="Clients" style="width: 160px; height: auto;" class="mb-4">
+        <h4 class="fw-semibold">Connect with Top Clients</h4>
+        <p class="text-muted">Get discovered by startups, agencies, and enterprises from around the globe.</p>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <img src="{% static 'images/payment.png' %}" alt="Payments" style="width: 160px; height: auto;" class="mb-4">
+        <h4 class="fw-semibold">Secure Payments</h4>
+        <p class="text-muted">Enjoy fast, transparent, and secure payment systems built for freelancers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ====== MARQUEE JOB ROLES ====== -->
+<section style="background: linear-gradient(to right, #1e3c72, #2a5298); color: white;" class="py-4">
+  <div class="container overflow-hidden position-relative" style="height: 70px;">
+    <div class="job-marquee d-flex flex-nowrap position-absolute"
+         style="white-space: nowrap; animation: scroll-left 25s linear infinite; font-size: 1.4rem;">
+      <span class="me-5 fw-semibold">🌐 Web Development</span>
+      <span class="me-5 fw-semibold">🎨 Graphic Design</span>
+      <span class="me-5 fw-semibold">✍️ Content Writing</span>
+      <span class="me-5 fw-semibold">📈 Digital Marketing</span>
+      <span class="me-5 fw-semibold">🧠 UI/UX Design</span>
+      <span class="me-5 fw-semibold">🔍 SEO Services</span>
+      <span class="me-5 fw-semibold">📱 App Development</span>
+      <span class="me-5 fw-semibold">🎬 Video Editing</span>
+      <span class="me-5 fw-semibold">🧾 Virtual Assistance</span>
+      <span class="me-5 fw-semibold">📞 Customer Support</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======= FAQs SECTION ======= -->
+<section class="py-5 bg-light" id="faq">
+  <div class="container" data-aos="fade-up">
+    <h2 class="fw-bold text-center mb-4">Frequently Asked Questions</h2>
+    <p class="text-center text-muted mb-5">Get answers to common questions about how FreelanceConnect works.</p>
+
+    <div class="accordion" id="faqAccordion">
+      <!-- FAQ 1 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faqHeadingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
+            How do I sign up as a freelancer?
+          </button>
+        </h2>
+        <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Click the "Sign Up" button on the top right, select "Freelancer" during registration, and complete your profile to start applying for jobs.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faqHeadingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+            How can clients post a job?
+          </button>
+        </h2>
+        <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            After logging in as a client, click on "Post a Job" from your dashboard, fill in the details, and publish it for freelancers to apply.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faqHeadingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+            Are payments secure on FreelanceConnect?
+          </button>
+        </h2>
+        <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, all transactions are handled through secure payment gateways. Freelancers get paid after milestones or job completion.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faqHeadingFour">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
+            Can I hire multiple freelancers for one project?
+          </button>
+        </h2>
+        <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Absolutely. Clients can invite or hire multiple freelancers depending on their project requirements.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faqHeadingFive">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFive" aria-expanded="false" aria-controls="faqCollapseFive">
+            What happens if there’s a dispute between a client and freelancer?
+          </button>
+        </h2>
+        <div id="faqCollapseFive" class="accordion-collapse collapse" aria-labelledby="faqHeadingFive" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            FreelanceConnect offers a support system to resolve disputes fairly by reviewing communication and deliverables.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 6 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faqHeadingSix">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseSix" aria-expanded="false" aria-controls="faqCollapseSix">
+            Is FreelanceConnect free to use?
+          </button>
+        </h2>
+        <div id="faqCollapseSix" class="accordion-collapse collapse" aria-labelledby="faqHeadingSix" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Signing up and browsing jobs is free. We charge a small service fee when you complete a paid project.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ====== SCROLL IMAGE SECTION ====== -->
+<section class="py-5 scroll-image-section text-center">
+  <div class="container" data-aos="zoom-in">
+    <h2 class="mb-3">Visualizing Success</h2>
+    <p class="mb-4 text-muted">As you explore more, let your journey rotate your vision.</p>
+    <div class="scroll-image-container">
+      <img src="{% static 'images/vision.png' %}" id="scrollImage" class="img-fluid" alt="Rotating" style="max-width: 300px;">
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="bg-dark text-white text-center py-4">
+  <p class="mb-2">&copy; 2025 FreelanceConnect. All rights reserved.</p>
   <p>
-    <a href="#">Privacy Policy</a> |
-    <a href="#">Terms of Service</a> |
-    <a href="#">Contact Us</a>
+    <a href="#" class="text-white text-decoration-none me-2">Privacy Policy</a> |
+    <a href="#" class="text-white text-decoration-none mx-2">Terms of Service</a> |
+    <a href="#" class="text-white text-decoration-none ms-2">Contact Us</a>
   </p>
 </footer>
-  <!-- ========== end of the home page ========-->
+
 
  <script>
-  function toggleMenu() {
-    document.getElementById('mobileMenu').classList.toggle('open');
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const images = [
-      "{% static 'images/image1.png' %}",
-      "{% static 'images/image2.png' %}",
-      "{% static 'images/image3.png' %}"
-    ];
-
-    let index = 0;
-    const imageElement = document.getElementById('carousel-image');
-    const dots = document.querySelectorAll('.carousel-dot');
-
-    function updateDots() {
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-      });
-    }
-
-    function showImage(i) {
-      imageElement.classList.add('fade-out');
-      setTimeout(() => {
-        index = i;
-        imageElement.src = images[index];
-        updateDots();
-        imageElement.classList.remove('fade-out');
-      }, 300); // matches CSS transition
-    }
-
-    window.changeImage = function (direction) {
-      let nextIndex = (index + direction + images.length) % images.length;
-      showImage(nextIndex);
-    };
-
-    window.goToSlide = function (i) {
-      if (i === index) return;
-      showImage(i);
-    };
-
-    // Set initial dot state
-    updateDots();
+   AOS.init({
+    duration: 1000,
+    once: true,
   });
- let lastScroll = 0;
-  window.addEventListener('scroll', () => {
-    const img = document.getElementById('scrollImage');
-    let scrollY = window.scrollY;
-    let direction = scrollY > lastScroll ? 'down' : 'up';
-    let angle = scrollY % 360;
-    img.style.transform = `rotate(${direction === 'down' ? angle : -angle}deg)`;
-    lastScroll = scrollY;
-  });
+
+  AOS.init();
 
 </script>
 

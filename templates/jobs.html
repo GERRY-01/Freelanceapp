@@ -4,513 +4,184 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Job Marketplace</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- AOS Animation -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
   <style>
-    :root {
-      --primary: #1abc9c;
-      --dark: #2c3e50;
-      --light-bg: #f4f6f9;
-      --white: #fff;
-      --text-dark: #333;
-      --text-light: #777;
-      --blue: #007bff;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
     body {
-      background-color: var(--light-bg);
-      color: var(--text-dark);
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
     }
-
-    .navbar {
-      background-color: var(--dark);
-      color: var(--white);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 1.5rem;
-      flex-wrap: wrap;
-      position: relative;
+    h2, h5 {
+      color: #1a237e;
     }
-
-    .navbar-left {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
+    .navbar-brand {
+      color: #0d47a1 !important;
     }
-
-    .navbar-title {
-      font-size: 1.2rem;
-      font-weight: bold;
+    .card-title {
+      color: #2c3e50;
     }
-
-    .logout-link {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      background-color: var(--blue);
-      padding: 0.4rem 0.8rem;
-      border-radius: 5px;
-      transition: background 0.3s;
-    }
-
-    .logout-link:hover {
-      background-color: #0056b3;
-    }
-
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .user-info img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .main {
-      max-width: 1000px;
-      margin: auto;
-      padding: 1.5rem;
-    }
-
-    .main h1 {
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      color: var(--dark);
-    }
-
-    .dashboard-container {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 1.5rem;
-    }
-
-    .dashboard-link {
-      background-color: var(--dark);
-      color: var(--white);
-      padding: 0.7rem 1.5rem;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-
-    .dashboard-link:hover {
-      background-color: var(--primary);
-    }
-
-   .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      align-items: center;
-    }
-
-
-    .search-wrapper {
-      position: relative;
-      display: flex;
-      flex: 1;
-      min-width: 250px;
-    }
-
-    .search-wrapper input {
-      flex: 1;
-      padding: 0.8rem 2.5rem 0.8rem 1rem; /* right padding for space */
-      font-size: 1rem;
-      border-radius: 5px 0 0 5px;
-      border: 1px solid #ccc;
-      border-right: none;
-    }
-
-    .search-wrapper button[type="submit"] {
-      padding: 0.8rem 1.2rem;
-      background-color: var(--primary);
-      border: none;
-      color: white;
-      border-radius: 0 5px 5px 0;
-      font-weight: bold;
-      cursor: pointer;
-      height: auto;
-    }
-
-    .search-wrapper button[type="submit"]:hover {
-      background-color: #16a085;
-    }
-
-    .clear-btn {
-      position: absolute;
-      right: 90px; /* adjust this based on submit button width */
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: #777;
-      font-size: 1.2rem;
-      cursor: pointer;
-      display: none;
-      z-index: 2;
-    }
-
-    .clear-btn:hover {
-      color: #333;
-    }
-
-    .filters select {
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      height: 40px;
-    }
-
-
-    .job-card {
-      background: var(--white);
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      margin-bottom: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .job-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .job-header img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .poster-name {
-      font-weight: bold;
-      color: var(--text-dark);
-    }
-
-    .job-card h3 {
-      font-size: 1.2rem;
-      color: var(--dark);
-    }
-
-    .job-card p {
-      color: var(--text-light);
-    }
-
-    .bottom-row {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .budget {
-      font-weight: bold;
-      color: var(--primary);
-    }
-
-    .apply-group {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .apply-btn {
-      text-decoration: none;
-      background-color: var(--primary);
-      color: white;
-      padding: 0.5rem 1.1rem;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
     .apply-btn:hover {
-      background-color: #16a085;
+      background-color: #1e88e5 !important;
+      color: #fff !important;
     }
-
-    .no-results {
-      text-align: center;
-      font-style: italic;
-      color: var(--text-light);
+    .btn-outline-secondary {
+      color: #555;
     }
-    .job-description a {
-      color: #1e90ff;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
+    .card {
+      transition: transform 0.3s ease;
     }
-
-    .job-description a:hover {
-      text-decoration: underline;
+    .card:hover {
+      transform: translateY(-5px);
     }
-    .posted-time {
-      color: #888;
-      font-size: 0.85rem;
-      margin-top: 5px;
+    #clearBtn {
+      display: none;
     }
-    .job-deadline {
-    font-size: 0.9rem;
-    color: #e63946; /* soft red for urgency */
-    font-weight: 500;
-    padding: 6px 12px;
-    border-left: 4px solid #e63946;
-    border-radius: 4px;
-    margin-top: 10px;
-    display: inline-block;
-  }
-  .applied-btn {
-    background-color:rgb(231, 26, 11);
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: not-allowed;
-    opacity: 0.7;
-  }
-
-
-    @media (max-width: 768px) {
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-
-      .navbar-left {
-        width: 100%;
-        align-items: flex-start;
-      }
-
-      .user-info {
-        align-self: flex-end;
-      }
-
-      .filters {
-        flex-direction: column;
-      }
-
-      .search-wrapper,
-      .filters select {
-        width: 100%;
-      }
-
-      .bottom-row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .apply-group {
-        width: 100%;
-        justify-content: space-between;
-      }
-    }
-    /* === Animations === */
-    @keyframes fadeSlideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes fadeScaleUp {
-      from {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    /* Apply to elements */
-    .navbar {
-      animation: fadeSlideDown 0.8s ease-out;
-    }
-
-    .main h1,
-    .dashboard-container {
-      animation: slideInLeft 1s ease-out;
-    }
-
-    .job-card {
-      animation: fadeScaleUp 0.6s ease-out;
-      animation-fill-mode: both;
-      animation-delay: 0.3s;
-    }
-
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <div class="navbar">
-    <div class="navbar-left">
-      <div class="navbar-title">Job Marketplace</div>
-      {% if user.is_authenticated %}
-      <a href="{% url 'logout' %}" class="logout-link">Logout</a>
-      {% else %}
-      <a href="{% url 'login' %}" class="logout-link">Login</a>
-      {% endif %}
-    </div>
-    <div class="user-info">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">Job Marketplace</a>
+    <div class="d-flex align-items-center">
       {% if user.is_authenticated %}
         {% if user.customuser.profile_pic %}
-      <img src="{{ user.customuser.profile_pic.url }}" alt="User" />
+          <img src="{{ user.customuser.profile_pic.url }}" alt="User" class="rounded-circle me-2" width="40" height="40">
         {% endif %}
-      <span>{{ user.username }}</span>
+        <span class="me-3 text-primary">{{ user.username }}</span>
+        <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn btn-outline-primary btn-sm">Login</a>
       {% endif %}
     </div>
   </div>
+</nav>
 
-  <!-- Main -->
-  <div class="main">
-    <h1>Available Jobs</h1>
+<!-- Main Content -->
+<div class="container py-5">
 
-    <!-- Dashboard Link -->
-    <div class="dashboard-container">
-      {% if user.is_authenticated %}
-      {% if user.customuser.account_type == "freelancer"%}
-      <a href="{% url 'freelancer' %}" class="dashboard-link">Go to My Dashboard</a>
+  <!-- Heading -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Available Jobs</h2>
+    {% if user.is_authenticated %}
+      {% if user.customuser.account_type == "freelancer" %}
+        <a href="{% url 'freelancer' %}" class="btn btn-primary">My Dashboard</a>
       {% else %}
-      <a href="{% url 'client' %}" class="dashboard-link">Go to My Dashboard</a>
+        <a href="{% url 'client' %}" class="btn btn-primary">My Dashboard</a>
       {% endif %}
-      {% endif %}
+    {% endif %}
+  </div>
+
+  <!-- Filters -->
+  <form class="row g-3 align-items-center mb-4" id="searchForm">
+    <div class="col-md-6">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search job titles..." name="search" id="searchInput">
+        <button type="button" class="btn btn-outline-secondary" id="clearBtn" title="Clear"><i class="bi bi-x-circle"></i></button>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
     </div>
-
-    <!-- Filters -->
-    <form class="filters" id="searchForm">
-     <div class="search-wrapper">
-      <input type="text" placeholder="Search job titles..." name="search" id="searchInput" />
-      <button type="button" class="clear-btn" id="clearBtn" title="Clear">&times;</button>
-      <button type="submit">Search</button>
-    </div>
-
-
-      <select>
+    <div class="col-md-3">
+      <select class="form-select">
         <option value="">Filter by price</option>
         <option value="0-100">$0 - $100</option>
         <option value="101-300">$101 - $300</option>
         <option value="301-500">$301 - $500</option>
         <option value="500+">$500+</option>
       </select>
-    </form>
+    </div>
+  </form>
 
-    <!-- Job Listings -->
-    <div id="job-list">
-      {% for job in jobs %}
-      <div class="job-card" data-title="{{job.title|lower}}">
-        <div class="job-header">
-          <img src="{{job.client.profile_pic.url}}" alt="Client">
-          <div class="poster-name">{{job.client.user.username}}</div>
-          <small class="posted-time">Posted {{ job.posted_at }}</small>
-        </div>
-        <h3>{{job.title}}</h3>
-
-         <p class="job-deadline">
-          <strong>Deadline:</strong> {{ job.deadline|date:"F j, Y" }}
-        </p>
-
-        <div class="job-description">
-          {% with job.description|wordcount as word_count %}
-          {% if word_count > 45%}
-          <p class="short-desc" id="short-{{ job.id }}">
-            {{ job.description|truncatewords:45 }}...
-            <a href="javascript:void(0);" onclick="showFull('{{ job.id }}')">Read More</a>
-          </p>
-
-          <p class="full-desc" id="full-{{ job.id }}" style="display: none;">
-            {{ job.description }}
-            <a href="javascript:void(0);" onclick="showLess('{{ job.id }}')">Show Less</a>
-          </p>
-          {% else %}
-          <p>{{job.description}}</p>
-          {% endif %}
-          {% endwith %}
-        </div>
-
-
-        <div class="bottom-row">
-          <div class="budget">Budget: KSH {{job.budget}}</div>
-          <div class="apply-group">
-            {% if user.is_authenticated and user.customuser.account_type == "freelancer" %}
-               {% if job.id in applied_job_ids %}
-               <button class="applied-btn" disabled>Applied</button>
-               {% else %}
-              <a href="{% url 'apply' job.id %}" class="apply-btn">Apply Now</a>
-               {% endif %}
-            {% elif user.is_authenticated and user.customuser.account_type == "client" %}
-              <p style="color: red; font-weight: bold;">Only freelancers can apply to jobs.</p>
-            {% else %}
-              <a href="{% url 'login' %}" class="apply-btn">Login to Apply</a>
-            {% endif %}
-
-            <span>5 applications</span>
+  <!-- Job Listings -->
+  <div id="job-list" class="row g-4">
+    {% for job in jobs %}
+    <div class="col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'100' }}">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <img src="{{ job.client.profile_pic.url }}" alt="Client" class="rounded-circle me-2" width="40" height="40">
+            <div>
+              <strong>{{ job.client.user.username }}</strong><br>
+              <small class="text-muted">Posted {{ job.posted_at }}</small>
+            </div>
           </div>
+          <h5 class="card-title">{{ job.title }}</h5>
+          <p class="text-muted mb-1"><strong>Deadline:</strong> {{ job.deadline|date:"F j, Y" }}</p>
+
+          <div class="mb-3">
+            {% with job.description|wordcount as word_count %}
+              {% if word_count > 45 %}
+                <p class="short-desc" id="short-{{ job.id }}">
+                  {{ job.description|truncatewords:45 }}...
+                  <a href="javascript:void(0);" onclick="showFull('{{ job.id }}')">Read More</a>
+                </p>
+                <p class="full-desc" id="full-{{ job.id }}" style="display: none;">
+                  {{ job.description }}
+                  <a href="javascript:void(0);" onclick="showLess('{{ job.id }}')">Show Less</a>
+                </p>
+              {% else %}
+                <p>{{ job.description }}</p>
+              {% endif %}
+            {% endwith %}
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="text-primary fw-bold">Budget: KSH {{ job.budget }}</div>
+            <div class="text-end">
+              {% if user.is_authenticated and user.customuser.account_type == "freelancer" %}
+                {% if job.id in applied_job_ids %}
+                  <button class="btn btn-secondary btn-sm" disabled>Applied</button>
+                {% else %}
+                  <a href="{% url 'apply' job.id %}" class="btn btn-success btn-sm apply-btn">Apply Now</a>
+                {% endif %}
+              {% elif user.is_authenticated and user.customuser.account_type == "client" %}
+                <p class="text-danger fw-bold small m-0">Only freelancers can apply.</p>
+              {% else %}
+                <a href="{% url 'login' %}" class="btn btn-warning btn-sm">Login to Apply</a>
+              {% endif %}
+              <small class="d-block mt-1 text-muted">5 applications</small>
+            </div>
+          </div>
+
         </div>
       </div>
-      {% endfor %}
     </div>
-
-    <!-- Message for no results -->
-    <p class="no-results" id="noResults" style="display:none;">No matching results found.</p>
+    {% endfor %}
   </div>
 
-  <!-- JavaScript for Search -->
- <script>
+  <p class="text-muted text-center mt-5" id="noResults" style="display:none;">No matching results found.</p>
+</div>
+
+<!-- AOS Animation -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
+<!-- JavaScript for Search -->
+<script>
   const searchForm = document.getElementById('searchForm');
   const searchInput = document.getElementById('searchInput');
-  const jobCards = document.querySelectorAll('.job-card');
+  const jobCards = document.querySelectorAll('.card');
   const noResults = document.getElementById('noResults');
   const clearBtn = document.getElementById('clearBtn');
 
   function filterJobs(query) {
     let matchFound = false;
     jobCards.forEach(card => {
-      const title = card.dataset.title.toLowerCase();
+      const title = card.querySelector('.card-title').textContent.toLowerCase();
       if (title.includes(query)) {
-        card.style.display = 'block';
+        card.parentElement.style.display = 'block';
         matchFound = true;
       } else {
-        card.style.display = 'none';
+        card.parentElement.style.display = 'none';
       }
     });
     noResults.style.display = matchFound ? 'none' : 'block';
@@ -527,17 +198,16 @@
 
   clearBtn.addEventListener('click', () => {
     searchInput.value = '';
-    jobCards.forEach(card => card.style.display = 'block');
+    jobCards.forEach(card => card.parentElement.style.display = 'block');
     noResults.style.display = 'none';
     clearBtn.style.display = 'none';
   });
 
-  // Show/hide clear button based on input
   searchInput.addEventListener('input', () => {
     clearBtn.style.display = searchInput.value ? 'block' : 'none';
   });
 
-    function showFull(id) {
+  function showFull(id) {
     document.getElementById('short-' + id).style.display = 'none';
     document.getElementById('full-' + id).style.display = 'block';
   }
@@ -550,6 +220,7 @@
 
 </body>
 </html>
+
 
 
 

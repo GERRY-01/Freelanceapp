@@ -148,3 +148,4 @@ def client_proposals(request):
     client_jobs = Jobs.objects.filter(client=customuser)
     proposals = Proposals.objects.filter(job__in=client_jobs)
     return render(request, 'client_proposals.html',{'proposals':proposals})
+
